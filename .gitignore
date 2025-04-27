@@ -1,0 +1,29 @@
+# === Python related ===
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+*.sqlite3
+*.log
+
+# === FAISS indices & data outputs ===
+data/processed/
+data/indices/
+
+# === System files ===
+.DS_Store
+Thumbs.db
+
+# === VSCode settings (optional) ===
+.vscode/
+
+# === Frontend build artefacts (future-proofing) ===
+frontend/node_modules/
+dist/
+
+# === Environment / Secrets (if later added) ===
+.env

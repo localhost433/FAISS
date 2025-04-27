@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Vibe Search Engine</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- External CSS -->
+  <link rel="stylesheet" href="./static/style.css">
+</head>
+<body>
+
+  <h1>Vibe Search Engine</h1>
+
+  <div class="search-container">
+    <input type="text" id="searchInput" placeholder="Type your vibe..." />
+    <button id="searchButton">Search</button>
+  </div>
+
+  <div id="results"></div>
+
+  <!-- Main frontend logic -->
+  <script type="module">
+    import { searchPlaces } from "./static/api.js";
+    import { clearResults, displayResults } from "./static/ui.js";
+
+    async function handleSearch() {
+      const query = document.getElementById('searchInput').value.trim();
+      if (!query) return;
+
+      clearResults();
+      try {
+        const results = await searchPlaces(query);
+        displayResults(results);
+      } catch (error) {
+        console.error("Search failed:", error);
+        const resultsDiv = document.getElementById('results');
+        resultsDiv.innerHTML = '<p style="color: red;">An error occurred. Please try again later.</p>';
+      }
+    }
+
+    document.getElementById('searchButton').addEventListener('click', handleSearch);
+
+    document.getElementById('searchInput').addEventListener('keypress', async (e) => {
+      if (e.key === 'Enter') {
+        await handleSearch();
+      }
+    });
+  </script>
+
+</body>
+</html>

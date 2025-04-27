@@ -1,81 +1,101 @@
-# FAISS Search local implementation
+# Vibe Search Engine (FAISS + FastAPI)
+
+A local semantic search engine for places, with:
+- Sentence-Transformers for embeddings
+- FAISS for fast similarity search
+- FastAPI for backend
+- JS + HTML/CSS for frontend
+
+---
 
 ## Structure
 The project should look like this:
+- **backend/**
+  - **app/**
+    - `__init__.py`
+    - `main.py` — App setup
+    - **core/** — Logic helper functions
+      - `config.py` — Paths/settings
+      - `embeddings.py` — Load model, embeddings
+      - `faiss_io.py` — FAISS indices
+      - `text_utils.py` — Preprocess
+    - **api/**
+      - `__init__.py`
+      - **routes/**
+        - `search.py` — Search
 
-       FAISS/
-       ├── README.md
-       ├── backend/
-       │   ├── __init__.py
-       │   ├── data/
-       │   │   ├── media.csv
-       │   │   ├── merged.csv
-       │   │   ├── places.csv
-       │   │   ├── processed.csv
-       │   │   └── reviews.csv
-       │   ├── faiss_indices/
-       │   │   └── index_file.index
-       │   ├── main.py
-       │   ├── requirements.txt
-       │   └── training.py
-       ├── index.html
-       └── src/
-           ├── api.js
-           ├── main.js
-           └── ui.js
+- **data/**
+  - **raw/** — Source data
+    - `media.csv`
+    - `places.csv`
+    - `reviews.csv`
+    - **AGREEMENTS + LICENSE/**
+      - `data-license.md`
+      - `usage-agreement.md`
+  - **processed/** — Merged data
+    - `merged.csv`
+  - **indices/** — FAISS indices
+    - `metadata.index`
+    - `reviews.index`
 
+- **frontend/**
+  - `index.html`
+  - **static/**
+    - `api.js`
+    - `ui.js`
+    - `style.css`
 
-## Setup
-       cd backend
-       python3 -m venv venv
-       source venv/bin/activate
-       pip install -r requirements.txt
-Will take a while and might be differnet on Windows that run 
-`venv\Scripts\activate`
-instead of
-`source venv/bin/activate`
+- **scripts/**
+  - `build_index.py` — Build merged CSV and FAISS indices
+  - `run_server.sh` — Launch FastAPI server
+
+- `.gitignore`
+- `README.md`
+
+## Setup Instructions
+
+### 1. Backend Setup
+
+```bash
+cd backend
+python3 -m venv .venv
+source .venv/bin/activate   # or .venv\Scripts\activate on Windows
+pip install -r requirements.txt
+```
 
 ## Data/Training
 Make sure
-`backend/data/merged.csv`
-`backend/faiss_indices/index_file.index`
+`data/processed/merged.csv`
+`data/indices/*.index`
 exists, if not, run
-
-       python3 training.py
-(Training script that builds the index and metadata from the dataset.)
+```bash
+python3 ../scripts/build_index.py
+```
 
 ## Backend
-In `backend/` run
+From the Project root, run
+```bash
+./scripts/run_server.sh
+# chmod +x ./scripts/run_server.sh
+# ./scripts/run_server.sh
+```
+Start the FastAPI server (`uvicorn app.main:app`) on `http://127.0.0.1:8000`
 
-       uvicorn main:app --reload --port 8000
-Server will be running at: `http://127.0.0.1:8000`
+## Frontend(Static)
 
-## Frontend
-In a new terminal tab, run
+```bash
+cd frontend
+python3 -m http.server 5500
+```
+Visit `http://127.0.0.1:5500` in browser.
 
-       cd path/to/FAISS/
-       python3 -m http.server 5500
-Visit `http://127.0.0.1:5500/index.html` in your browser to use the app.
+## Flow
+1. User opens frontend in a browser (`http://127.0.0.1:5500`)
+2. User types query and hit "Search"
+3. Frontend sends HTTP request to backend (`http://127.0.0.1:8000/search?q=...`)
+4. Backend:
+    - Encodes the query using the model
+    - Searches the FAISS index
+    - Returns the 5 closest matches
+5. Frontend display the matching places
 
-## Troubleshooting Guide
-| Problem                                                                                                                     | How to Fix                                                                                    |
-|-----------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------|
-| `ModuleNotFoundError: No module named 'app'`                                                                                | Run `uvicorn main:app --reload --port 8000` inside the `backend/` directory.                  |
-| `FileNotFoundError: ../data/merged.csv not found` or `RuntimeError: cannot open faiss_indexes/index_file.index for reading` | Run `python training.py`.                                                                     |
-| `Numpy error`                                                                                                               | Downgrade numpy: `pip install numpy==1.26.4`.                                                 |
-| Frontend not showing results                                                                                                | Confirm backend is live at `http://127.0.0.1:8000` and frontend is at `http://127.0.0.1:5500`.|
-
-## Flowchart for local deployment
-       [ User (browser) ]
-              |
-              |  (typing query)
-              v
-       [ Frontend Server (http://127.0.0.1:5500) ]
-              |
-              |  (fetch request: http://127.0.0.1:8000/search?q=...)
-              v
-       [ Backend Server (FastAPI at http://127.0.0.1:8000) ]
-              |
-              |  (query processing: search FAISS index)
-              v
-       [ FAISS index + CSV metadata files ]
