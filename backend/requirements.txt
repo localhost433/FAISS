@@ -1,5 +1,6 @@
 fastapi
 uvicorn
+starlette
 sentence-transformers
 faiss-cpu
 pandas

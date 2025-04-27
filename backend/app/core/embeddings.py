@@ -2,13 +2,14 @@
 
 from sentence_transformers import SentenceTransformer
 import numpy as np
+import torch
 
 _model = None
 
-def load_model():
+def load_model(device='cuda' if torch.cuda.is_available() else 'cpu'):
     global _model
     if _model is None:
-        _model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
+        _model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2', device=device)
     return _model
 
 def encode_texts(texts, normalize=True):
