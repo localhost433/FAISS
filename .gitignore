@@ -11,8 +11,7 @@ venv/
 *.log
 
 # === FAISS indices & data outputs ===
-data/processed/
-data/indices/
+data/
 
 # === System files ===
 .DS_Store
