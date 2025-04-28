@@ -4,7 +4,7 @@ A local semantic search engine for places, with:
 - Sentence-Transformers for embeddings
 - FAISS for fast similarity search
 - FastAPI for backend
-- JS + HTML/CSS for frontend
+- JavaScript + HTML/CSS for frontend
 - Link to copy of Jupyter Notebook:
   `https://colab.research.google.com/drive/1818b_G8VTFzyJA23X3lbZPFQpvIfbPpr?usp=sharing`
 ---
