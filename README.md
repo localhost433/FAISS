@@ -25,7 +25,7 @@ The project should look like this:
         - `search.py` — Search
 
 - **data/**
-  - **raw/** — Source data
+  - **raw/** — Source data, copy from given dataset 2
     - `media.csv`
     - `places.csv`
     - `reviews.csv`
@@ -54,7 +54,7 @@ The project should look like this:
 
 ## Setup Instructions
 
-### 1. Backend Setup
+### Backend Setup
 
 ```bash
 cd backend
@@ -64,10 +64,10 @@ pip install -r requirements.txt
 ```
 
 ## Data/Training
-Make sure
+Extract the given data into `data/raw`. If
 `data/processed/merged.csv`
 `data/indices/*.index`
-exists, if not, run
+doesn't exist, run
 ```bash
 python3 ../scripts/build_index.py
 ```
