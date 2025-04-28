@@ -20,7 +20,7 @@ Thumbs.db
 # === VSCode settings (optional) ===
 .vscode/
 
-# === Frontend build artefacts (future-proofing) ===
+# === Frontend build artefacts ===
 frontend/node_modules/
 dist/
 
