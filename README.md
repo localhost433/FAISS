@@ -51,6 +51,7 @@ The project should look like this:
 
 - `.gitignore`
 - `README.md`
+- `Notebook.ipynb` - Jupyter Notebook
 
 ## Setup Instructions
 
