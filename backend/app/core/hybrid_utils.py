@@ -6,7 +6,7 @@ from app.core.faiss_io import load_faiss_index
 from app.core.embeddings import encode_texts
 from app.core.config import settings
 from sklearn.metrics.pairwise import cosine_similarity
-from fastembed.embedding import SparseTextEmbedding
+from fastembed.embedding import SparseEmbedding
 from transformers import CLIPProcessor, CLIPModel
 import torch
 
