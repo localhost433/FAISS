@@ -104,9 +104,10 @@ def main():
     try:
         print("Loading image embeddings for FAISS index...")
         image_df = pd.read_csv("data/raw/image_embeddings_sorted.csv")
-        image_df = image_df.dropna(subset=["image_embedding"])
-        image_embeddings = image_df["image_embedding"].apply(eval).tolist()
-        image_embeddings = np.array(image_embeddings, dtype="float32")
+
+        # Extract only embedding columns
+        embedding_cols = [col for col in image_df.columns if col.startswith("embed_")]
+        image_embeddings = image_df[embedding_cols].to_numpy().astype("float32")
         image_index = build_faiss_index(image_embeddings)
         save_faiss_index(image_index, IMAGE_INDEX_PATH)
         print("Image FAISS index saved.")
