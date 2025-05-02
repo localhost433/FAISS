@@ -1,10 +1,13 @@
 fastapi
 uvicorn
 starlette
-sentence-transformers
-faiss-cpu
 pandas
 numpy==1.26.4
 tqdm
+sentence-transformers
 transformers
+faiss-cpu
+scikit-learn
+torch
+fastembed
 pydantic-settings
