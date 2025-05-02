@@ -8,6 +8,7 @@ from app.core.config import settings
 
 METADATA_INDEX_PATH = Path(__file__).resolve().parents[2] / "data/indices/metadata.index"
 REVIEWS_INDEX_PATH = Path(__file__).resolve().parents[2] / "data/indices/reviews.index"
+IMAGE_INDEX_PATH = Path(__file__).resolve().parents[2] / "data/indices/image.index"
 
 def build_faiss_index(vectors: np.ndarray) -> faiss.Index:
     try:
