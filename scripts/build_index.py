@@ -17,7 +17,7 @@ from app.core.text_utils import combining_text, concat_reviews
 from app.core.embeddings import load_model, encode_texts, chunk_by_tokens
 from app.core.faiss_io import build_faiss_index, save_faiss_index, METADATA_INDEX_PATH, IMAGE_INDEX_PATH
 from app.core.config import settings
-from fastembed.embedding import SparseTextEmbedding
+from fastembed import SparseTextEmbedding
 
 # Paths
 RAW_MEDIA = settings.RAW_MEDIA_PATH
