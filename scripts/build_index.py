@@ -161,12 +161,29 @@ def main():
     # Generate review embeddings and build FAISS index
     agg_text_df = generate_review_embeddings(reviews_df)
     merge_df = merge_df.merge(agg_text_df[['place_id', 'review_embedding']], on='place_id', how='left')
-
-    # Build and save review index
     build_and_save_review_index(merge_df)
 
     # Save processed CSV
     save_processed_csv(merge_df)
+
+    # === Step 1: Add CLIP image embeddings to FAISS ===
+    try:
+        print("Loading image embeddings for FAISS index...")
+        image_df = pd.read_csv("data/raw/image_embeddings_sorted.csv")
+        image_df = image_df.dropna(subset=["image_embedding"])
+
+        # Convert string representation to actual vectors
+        image_embeddings = image_df["image_embedding"].apply(eval).tolist()
+        image_embeddings = np.array(image_embeddings, dtype="float32")
+
+        # Build FAISS index for images
+        from app.core.faiss_io import IMAGE_INDEX_PATH
+        image_index = build_faiss_index(image_embeddings)
+        save_faiss_index(image_index, IMAGE_INDEX_PATH)
+
+        print("Image FAISS index saved.")
+    except Exception as e:
+        print("Skipping image embedding index:", e)
 
     print("Index building completed successfully.")
 
