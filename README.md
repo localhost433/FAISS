@@ -100,3 +100,12 @@ Visit `http://127.0.0.1:5500` in browser.
     - Returns the 5 closest matches
 5. Frontend display the matching places
 
+## Acknowledgements
+This project was developed as part of the **Corner-DSC-BAC Datathon**.
+
+We gratefully acknowledge the support and data provided by our sponsor, corner.
+
+Built collaboratively by:
+- [Tomas Gutierrez](https://github.com/tom4sg)
+- Yarden Morad
+- [Robin Chen](https://github.com/localhost433) 

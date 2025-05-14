@@ -3,7 +3,7 @@
 # Fail immediately if any command fails
 set -e
 
-# Navigate to backend directory (if running from project root)
+# Navigate to backend directory
 cd "$(dirname "$0")/../backend"
 
 # Activate virtual environment
