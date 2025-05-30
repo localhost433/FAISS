@@ -7,6 +7,17 @@ A local semantic search engine for places, with:
 - JavaScript + HTML/CSS for frontend
 - Link to copy of Jupyter Notebook:
   `https://colab.research.google.com/drive/1818b_G8VTFzyJA23X3lbZPFQpvIfbPpr?usp=sharing`
+
+## Acknowledgements
+This project was developed as part of the 2025 **Corner-DSC-BAC Datathon**.
+
+We gratefully acknowledge the support and data provided by our sponsor, corner.
+
+Built collaboratively by:
+- [Tomas Gutierrez](https://github.com/tom4sg)
+- Yarden Morad
+- [Robin Chen](https://github.com/localhost433) 
+
 ---
 
 ## Structure
@@ -59,7 +70,7 @@ The project should look like this:
 
 ```bash
 cd backend
-python3 -m venv .venv
+python -m venv .venv
 source .venv/bin/activate   # or .venv\Scripts\activate on Windows
 pip install -r requirements.txt
 ```
@@ -70,7 +81,7 @@ Extract the given data into `data/raw`. If
 `data/indices/*.index`
 doesn't exist, run
 ```bash
-python3 ../scripts/build_index.py
+python ../scripts/build_index.py
 ```
 
 ## Backend
@@ -86,7 +97,7 @@ Start the FastAPI server (`uvicorn app.main:app`) on `http://127.0.0.1:8000`
 
 ```bash
 cd frontend
-python3 -m http.server 5500
+python -m http.server 5500
 ```
 Visit `http://127.0.0.1:5500` in browser.
 
@@ -99,13 +110,3 @@ Visit `http://127.0.0.1:5500` in browser.
     - Searches the FAISS index
     - Returns the 5 closest matches
 5. Frontend display the matching places
-
-## Acknowledgements
-This project was developed as part of the **Corner-DSC-BAC Datathon**.
-
-We gratefully acknowledge the support and data provided by our sponsor, corner.
-
-Built collaboratively by:
-- [Tomas Gutierrez](https://github.com/tom4sg)
-- Yarden Morad
-- [Robin Chen](https://github.com/localhost433) 
